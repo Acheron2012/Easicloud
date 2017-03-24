@@ -1,18 +1,17 @@
 package com.ictwsn.utils;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
+import com.ictwsn.bean.UserBean;
+import com.ictwsn.user.CookieUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.ictwsn.bean.UserBean;
-import com.ictwsn.user.CookieUtil;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 
@@ -43,7 +42,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		// 过滤掉特殊请求的URL
 		String url = request.getRequestURL().toString();
 		
-		 logger.info(">>>: " + url);
+//		 logger.info(">>>: " + url);
 		for (String s : IGNORE_URI) {
 			if (url.contains(s)) {
 				logger.info("{}请求放行",url);

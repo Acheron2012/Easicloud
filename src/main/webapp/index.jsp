@@ -39,7 +39,7 @@
 				</ul>
 			</div>
 			<div class="content">
-				<iframe name="main_content" id="main_content" src="/EasiCloudAPI/mydevice.jsp"
+				<iframe name="main_content" id="main_content" src="<%=path %>/mydevice.jsp"
 					style="margin-top: 5px; width: 100%; height: 800px;"
 					frameborder="0"></iframe>
 			</div>

@@ -1,33 +1,6 @@
 package com.ictwsn.api;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import net.sf.json.JSONArray;
-import net.sf.json.JSONException;
-import net.sf.json.JSONObject;
-
-import org.apache.commons.math3.geometry.euclidean.oned.Interval;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
+import Jama.Matrix;
 import com.ictwsn.api.Algorithm.algorithmAPI;
 import com.ictwsn.api.Algorithm.jgpml.ArrayToMatrix;
 import com.ictwsn.api.Algorithm.jgpml.GaussianProcess;
@@ -42,15 +15,26 @@ import com.ictwsn.bean.DeviceBean;
 import com.ictwsn.bean.SensorBean;
 import com.ictwsn.utils.Tools;
 import com.ictwsn.utils.redis.RedisOperation;
-import com.mathworks.toolbox.javabuilder.MWException;
-import com.mathworks.toolbox.javabuilder.MWNumericArray;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
-import com.sun.tools.corba.se.idl.InterfaceGen;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONException;
+import net.sf.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
-import Jama.Matrix;
-import MIMOGaussianProcess.MIMOGaussianProcess;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 
 @Controller
@@ -808,7 +792,7 @@ public class APIController {
 		}
 		JSONObject jsonObject = jsonArray.getJSONObject(0).getJSONArray("values").getJSONObject(0);
 		int datatype_numbers=0;
-		ArrayList<String> data_type=new ArrayList<>();
+		ArrayList<String> data_type=new ArrayList<String>();
 		Iterator<?> iterator=jsonObject.keys();
 		while(iterator.hasNext()){
 			data_type.add(iterator.next().toString());

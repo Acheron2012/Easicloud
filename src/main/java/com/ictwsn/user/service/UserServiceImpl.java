@@ -1,21 +1,19 @@
 package com.ictwsn.user.service;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-
 import com.ictwsn.bean.UserBean;
 import com.ictwsn.user.action.UserAction;
 import com.ictwsn.user.dao.UserDao;
 import com.ictwsn.utils.BaseDao;
 import com.ictwsn.utils.Tools;
 import com.ictwsn.utils.VerificationEMail;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.util.Calendar;
+import java.util.Date;
 
 @Service
 public class UserServiceImpl extends BaseDao implements UserService{
@@ -66,24 +64,26 @@ public class UserServiceImpl extends BaseDao implements UserService{
 		//获取数据库密码
 		String db_password = init().getPassword(user_id);
 		//密码判断
-			
-				try {
-					if(db_password.equals(Tools.EncoderByMd5(old_password)))
-					{
-						//密码修改
-						int i = init().changePassword(Tools.EncoderByMd5(new_password), user_id);
-						if(i==1) return "密码修改成功";
-						else return "密码修改失败";
-					}
-					else return "原密码不正确";
-				} catch (NoSuchAlgorithmException
-						| UnsupportedEncodingException e) {
-					e.printStackTrace();
-					return e.getMessage();
-				}
+		String error = "";
+		try {
+			if(db_password.equals(Tools.EncoderByMd5(old_password)))
+            {
+                //密码修改
+                int i = init().changePassword(Tools.EncoderByMd5(new_password), user_id);
+                if(i==1) return "密码修改成功";
+                else return "密码修改失败";
+            }
+            else return "原密码不正确";
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+			error = e.getMessage();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			error = e.getMessage();
+		}
+		return error;
 	}
 
-	@Override
 	public int checkPassword(String user_name, String user_password) {
 		//获取数据库密码
 		String db_password = init().getPasswordByName(user_name);
@@ -106,7 +106,6 @@ public class UserServiceImpl extends BaseDao implements UserService{
 		}
 	}
 
-	@Override
 	public int emailVerifaction(String email, String email_code) {
 		
 		//获取当前时间，并向后添加1分钟
@@ -143,17 +142,14 @@ public class UserServiceImpl extends BaseDao implements UserService{
 		}
 	}
 
-	@Override
 	public int judgeEmailDatetime(String email, Date deadline) {
 		return init().judgeEmailDatetime(email, deadline);
 	}
 
-	@Override
 	public String getEmailCode(String email) {
 		return init().getEmailCode(email);
 	}
 
-	@Override
 	public UserBean getUserByName(String user_name) {
 		return init().getUserByName(user_name);
 	}
